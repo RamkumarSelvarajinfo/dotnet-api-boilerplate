@@ -101,7 +101,7 @@ namespace __SolutionName__.Application.Services
         {
             var flightsQuery = _unitOfWork.Repository<Flight>().Query(f =>
                 (string.IsNullOrEmpty(filter.FlightNumber) || f.FlightNumber == filter.FlightNumber) &&
-                (string.IsNullOrEmpty(filter.Origin) || f.Source == filter.Origin) &&
+                (string.IsNullOrEmpty(filter.Source) || f.Source == filter.Source) &&
                 (string.IsNullOrEmpty(filter.Destination) || f.Destination == filter.Destination) &&
                 (!filter.DepartureDate.HasValue || f.DepartureTime.Date == filter.DepartureDate.Value.Date) &&
                 (!filter.ArrivalDate.HasValue || f.ArrivalTime.Date == filter.ArrivalDate.Value.Date)
@@ -123,6 +123,15 @@ namespace __SolutionName__.Application.Services
                 PageNumber = filter.PageNumber,
                 PageSize = filter.PageSize
             };
+        }
+
+        public async Task<FlightResponseDto?> GetFlightByNumberAsync(string flightNumber)
+        {
+            var flight = await _unitOfWork.Flights.GetFlightByNumberAsync(flightNumber);
+            if (flight == null)
+                throw new BusinessException($"Flight with number '{flightNumber}' not found.", HttpStatusCode.NotFound);
+
+            return _mapper.Map<FlightResponseDto>(flight);
         }
     }
 }

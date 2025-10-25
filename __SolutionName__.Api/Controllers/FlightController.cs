@@ -64,6 +64,19 @@ namespace __SolutionName__.Api.Controllers
             return Ok(flight);
         }
 
+        [HttpGet("number/{flightNumber}")]
+        [ProducesResponseType(typeof(FlightResponseDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [SwaggerOperation(Tags = new[] { "flight" }, Summary = "GetFlightByNumber")]
+        public async Task<IActionResult> GetFlightByNumber(string flightNumber)
+        {
+            var flight = await _flightService.GetFlightByNumberAsync(flightNumber);
+            if (flight == null)
+                return NotFound();
+
+            return Ok(flight);
+        }
+
         [HttpPost("Search")]
         [ProducesResponseType(typeof(SearchResult<FlightResponseDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

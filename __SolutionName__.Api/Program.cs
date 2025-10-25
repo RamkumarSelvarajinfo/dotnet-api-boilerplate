@@ -2,7 +2,7 @@ using __SolutionName__.Api.Extensions;
 using __SolutionName__.Api.Filters;
 using __SolutionName__.Api.Middlewares;
 using __SolutionName__.Application;
-using __SolutionName__.Infrastructure.Extensions;
+using __SolutionName__.Infrastructure;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);

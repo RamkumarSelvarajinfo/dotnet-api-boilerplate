@@ -1,6 +1,8 @@
-﻿namespace __SolutionName__.Domain.Entities
+﻿using __SolutionName__.Domain.Entities.Base;
+
+namespace __SolutionName__.Domain.Entities
 {
-    public class Flight
+    public class Flight : BaseEntity
     {
         public Guid Id { get; set; }
         public string FlightNumber { get; set; }

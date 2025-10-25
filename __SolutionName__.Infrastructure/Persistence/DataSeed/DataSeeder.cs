@@ -16,7 +16,10 @@ namespace __SolutionName__.Infrastructure.Persistence.DataSeed
                     Destination = "London",
                     DepartureTime = new DateTime(2023, 10, 1, 10, 0, 0, DateTimeKind.Utc), // Static DateTime
                     ArrivalTime = new DateTime(2023, 10, 1, 18, 0, 0, DateTimeKind.Utc), // Static DateTime
-                    Price = 500
+                    Price = 500,
+                    CreatedBy = "DataSeeder",
+                    CreatedOn = new DateTime(2023, 10, 2, 12, 0, 0, DateTimeKind.Utc),
+                    Status = true
                 },
                 new Flight
                 {
@@ -26,7 +29,10 @@ namespace __SolutionName__.Infrastructure.Persistence.DataSeed
                     Destination = "Tokyo",
                     DepartureTime = new DateTime(2023, 10, 2, 12, 0, 0, DateTimeKind.Utc), // Static DateTime
                     ArrivalTime = new DateTime(2023, 10, 2, 22, 0, 0, DateTimeKind.Utc), // Static DateTime
-                    Price = 800
+                    Price = 800,
+                    CreatedBy = "DataSeeder",
+                    CreatedOn = new DateTime(2023, 10, 2, 12, 0, 0, DateTimeKind.Utc),
+                    Status = true
                 }
             );
         }

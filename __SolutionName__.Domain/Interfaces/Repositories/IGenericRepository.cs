@@ -1,10 +1,11 @@
-﻿using System.Linq.Expressions;
+﻿using __SolutionName__.Domain.Entities.Base;
+using System.Linq.Expressions;
 
 namespace __SolutionName__.Domain.Interfaces.Repositories
 {
-    public interface IGenericRepository<T> where T : class
+    public interface IGenericRepository<T> where T : BaseEntity
     {
-        Task<T> GetByIdAsync(object id);
+        Task<T?> GetByIdAsync(object id);
         Task<IEnumerable<T>> GetAllAsync();
         Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate);
         Task AddAsync(T entity);

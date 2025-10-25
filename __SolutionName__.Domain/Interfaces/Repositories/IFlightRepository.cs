@@ -4,5 +4,6 @@ namespace __SolutionName__.Domain.Interfaces.Repositories
 {
     public interface IFlightRepository : IGenericRepository<Flight>
     {
+        Task<Flight?> GetFlightByNumberAsync(string flightNumber);
     }
 }

@@ -10,5 +10,7 @@ namespace __SolutionName__.Application.Interfaces
         Task<FlightResponseDto> UpdateFlightAsync(UpdateFlightDto dto);
         Task DeleteFlightAsync(Guid id);
         Task<SearchResult<FlightResponseDto>> SearchFlightsAsync(FlightSearchFilterDto filter);
+
+        Task<FlightResponseDto?> GetFlightByNumberAsync(string flightNumber);
     }
 }
