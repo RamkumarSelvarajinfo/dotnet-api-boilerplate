@@ -27,17 +27,33 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
     options.EnableAnnotations();
-    // JWT setup...
 });
+
+// Health & Compression
 builder.Services.AddHealthChecks();
 builder.Services.AddResponseCompression();
 
+// Application + Infrastructure
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.RegisterApplication();
 builder.Services.RegisterInfra(builder.Configuration);
 
+// Secure CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("DefaultCorsPolicy", policy =>
+    {
+        policy.AllowAnyHeader()
+              .AllowAnyMethod()
+              .WithOrigins("https://yourfrontend.com");
+    });
+});
+
 // Serilog
 Log.Logger = new LoggerConfiguration()
+    .Enrich.FromLogContext()
+    .Enrich.WithProperty("Application", "__SolutionName__")
+    .Enrich.WithProperty("Environment", builder.Environment.EnvironmentName)
     .WriteTo.Console()
     .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day)
     .CreateLogger();
@@ -45,8 +61,8 @@ builder.Host.UseSerilog();
 
 var app = builder.Build();
 
-// Middleware
-if (app.Environment.IsDevelopment())
+// Swagger only in non-production
+if (!app.Environment.IsProduction())
 {
     app.UseSwagger();
     app.UseSwaggerUI(options =>
@@ -55,17 +71,30 @@ if (app.Environment.IsDevelopment())
         options.RoutePrefix = string.Empty;
     });
 }
-app.UseCors(x => {
-    x.AllowAnyHeader();
-    x.AllowAnyOrigin();
-    x.AllowAnyMethod();
-});
+
+// Enforce HTTPS + HSTS in production
+if (app.Environment.IsProduction())
+{
+    app.UseHsts();
+}
+
+app.UseCors("DefaultCorsPolicy");
+
+// Middlewares
 app.UseMiddleware<ValidationMiddleware>();
-app.UseMiddleware<RequestResponseLoggingMiddleware>();
+
+// Only full request/response logging in dev/test
+if (!app.Environment.IsProduction())
+{
+    app.UseMiddleware<RequestResponseLoggingMiddleware>();
+}
+
 app.UseMiddleware<GlobalExceptionMiddleware>();
+
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.UseResponseCompression();
+
 app.MapControllers();
 app.MapHealthChecks("/health");
 

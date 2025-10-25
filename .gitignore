@@ -11,3 +11,4 @@ Logs/
 *.user
 *.userosscache
 *.sln.docstates
+/__SolutionName__.Api/appsettings.Development.json

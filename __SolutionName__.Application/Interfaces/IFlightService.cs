@@ -5,12 +5,16 @@ namespace __SolutionName__.Application.Interfaces
 {
     public interface IFlightService
     {
-        Task<FlightResponseDto?> GetFlightByIdAsync(Guid id);
-        Task<FlightResponseDto> CreateFlightAsync(CreateFlightDto dto);
-        Task<FlightResponseDto> UpdateFlightAsync(UpdateFlightDto dto);
-        Task DeleteFlightAsync(Guid id);
-        Task<SearchResult<FlightResponseDto>> SearchFlightsAsync(FlightSearchFilterDto filter);
+        Task<FlightResponseDto?> GetFlightByIdAsync(Guid id, CancellationToken cancellationToken = default);
 
-        Task<FlightResponseDto?> GetFlightByNumberAsync(string flightNumber);
+        Task<FlightResponseDto> CreateFlightAsync(CreateFlightDto dto, CancellationToken cancellationToken = default);
+
+        Task<FlightResponseDto> UpdateFlightAsync(UpdateFlightDto dto, CancellationToken cancellationToken = default);
+
+        Task DeleteFlightAsync(Guid id, CancellationToken cancellationToken = default);
+
+        Task<SearchResult<FlightResponseDto>> SearchFlightsAsync(FlightSearchFilterDto filter, CancellationToken cancellationToken = default);
+
+        Task<FlightResponseDto?> GetFlightByNumberAsync(string flightNumber, CancellationToken cancellationToken = default);
     }
 }
