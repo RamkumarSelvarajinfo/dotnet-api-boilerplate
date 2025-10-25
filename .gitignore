@@ -1,0 +1,13 @@
+
+bin/
+obj/
+*/migrations/
+*.db
+*.user
+Logs/
+.vs/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
