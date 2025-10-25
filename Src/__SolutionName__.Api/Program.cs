@@ -3,6 +3,8 @@ using __SolutionName__.Api.Filters;
 using __SolutionName__.Api.Middlewares;
 using __SolutionName__.Application;
 using __SolutionName__.Infrastructure;
+using __SolutionName__.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -43,9 +45,9 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("DefaultCorsPolicy", policy =>
     {
-        policy.AllowAnyHeader()
-              .AllowAnyMethod()
-              .WithOrigins("https://yourfrontend.com");
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
     });
 });
 
@@ -71,6 +73,13 @@ if (!app.Environment.IsProduction())
         options.RoutePrefix = string.Empty;
     });
 }
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate(); // Auto apply migrations
+}
+
 
 // Enforce HTTPS + HSTS in production
 if (app.Environment.IsProduction())

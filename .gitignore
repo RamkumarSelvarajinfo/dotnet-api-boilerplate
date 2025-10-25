@@ -12,3 +12,5 @@ Logs/
 *.userosscache
 *.sln.docstates
 /__SolutionName__.Api/appsettings.Development.json
+/__SolutionName__.Infrastructure/Migrations
+/Src/__SolutionName__.Api/appsettings.Development.json
