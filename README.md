@@ -30,7 +30,7 @@ A ready-to-use .NET 8 Web API solution template for quickly starting new project
 
 Clone or download this repository, then run the following command in the root directory:
 
-`   dotnet new --install .   `
+`   dotnet new --install {dotenet-api-boilerplate} .   `
 
 This will install the template locally on your machine.
 
@@ -78,11 +78,11 @@ Edit the appsettings.json file in your **API project** (YourSolutionName.Api) an
 
 From the **solution root**, run:
 
-`   dotnet ef migrations add InitialCreate --project src/YourSolutionName.Infrastructure --startup-project src/YourSolutionName.Api   `
+`   dotnet ef migrations add InitialCreate --project YourSolutionName.Infrastructure --startup-project YourSolutionName.Api   `
 
 ### 4️⃣ Apply Migration to Database
 
-`   dotnet ef database update --project src/YourSolutionName.Infrastructure --startup-project src/YourSolutionName.Api   `
+`   dotnet ef database update --project YourSolutionName.Infrastructure --startup-project YourSolutionName.Api   `
 
 ### 5️⃣ Verify Tables
 
@@ -97,7 +97,7 @@ After running the update, open your SQL Server and verify:
 
 Whenever you modify domain entities, simply run:
 
-`   dotnet ef migrations add AddNewEntity --project src/YourSolutionName.Infrastructure --startup-project src/YourSolutionName.Api  dotnet ef database update --project src/YourSolutionName.Infrastructure --startup-project src/YourSolutionName.Api   `
+`   dotnet ef migrations add AddNewEntity --project YourSolutionName.Infrastructure --startup-project YourSolutionName.Api  dotnet ef database update --project YourSolutionName.Infrastructure --startup-project YourSolutionName.Api   `
 
 ### ⚙️ Optional: Run Migrations Automatically on Startup
 
